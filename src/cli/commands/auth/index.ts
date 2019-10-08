@@ -6,7 +6,7 @@ import { isCI } from '../../../lib/is-ci';
 import request = require('../../../lib/request');
 import * as url from 'url';
 import * as uuid from 'uuid';
-import * as spinner from '../../../lib/spinner';
+import { Spinner } from 'cli-spinner';
 import { TokenExpiredError } from '../../../lib/errors/token-expired-error';
 import { MisconfiguredAuthInCI } from '../../../lib/errors/misconfigured-auth-in-ci-error';
 import { AuthFailedError } from '../../../lib/errors/authentication-failed-error';
@@ -51,26 +51,22 @@ async function webAuth(via: AuthCliCommands) {
   } else {
     return Promise.reject(MisconfiguredAuthInCI());
   }
+  const spinner = new Spinner('Waiting...');
+  spinner.setSpinnerString('|/-\\');
+  spinner.start();
 
-  const lbl = 'Waiting...';
+  try {
+    await setTimeout(() => {
+      open(urlStr, { wait: false });
+    }, 2000);
 
-  return (
-    spinner(lbl)
-      .then(() => {
-        setTimeout(() => {
-          open(urlStr, { wait: false });
-        }, 2000);
-        // start checking the token immediately in case they've already
-        // opened the url manually
-        return testAuthComplete(token);
-      })
-      // clear spinnger in case of success or failure
-      .then(spinner.clear(lbl))
-      .catch((error) => {
-        spinner.clear<void>(lbl)();
-        throw error;
-      })
-  );
+    const res = await testAuthComplete(token);
+    return res;
+  } catch (e) {
+    throw e;
+  } finally {
+    spinner.stop(true);
+  }
 }
 
 async function testAuthComplete(token: string): Promise<{ res; body }> {
