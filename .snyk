@@ -1,5 +1,34 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.5
-# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+version: v1.14.1
 ignore: {}
-patch: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - lodash:
+        patched: '2020-04-30T23:17:10.949Z'
+    - '@snyk/dep-graph > lodash':
+        patched: '2020-04-30T23:17:10.949Z'
+    - inquirer > lodash:
+        patched: '2020-04-30T23:17:10.949Z'
+    - snyk-config > lodash:
+        patched: '2020-04-30T23:17:10.949Z'
+    - snyk-mvn-plugin > lodash:
+        patched: '2020-04-30T23:17:10.949Z'
+    - snyk-nodejs-lockfile-parser > lodash:
+        patched: '2020-04-30T23:17:10.949Z'
+    - snyk-nuget-plugin > lodash:
+        patched: '2020-04-30T23:17:10.949Z'
+    - '@snyk/dep-graph > graphlib > lodash':
+        patched: '2020-04-30T23:17:10.949Z'
+    - snyk-go-plugin > graphlib > lodash:
+        patched: '2020-04-30T23:17:10.949Z'
+    - snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2020-04-30T23:17:10.949Z'
+    - '@snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash':
+        patched: '2020-04-30T23:17:10.949Z'
+    - snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        patched: '2020-04-30T23:17:10.949Z'
+    - snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2020-04-30T23:17:10.949Z'
+    - '@snyk/snyk-cocoapods-plugin > @snyk/dep-graph > graphlib > lodash':
+        patched: '2020-04-30T23:17:10.949Z'
